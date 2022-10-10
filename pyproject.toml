@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "normlap"
+version = "0.0.1"
+authors = [
+  { name="bingjie", email="author@example.com" },
+]
+description = "A package enable normlize the overlap between networks. It also provides the method for randomizing network and randomizing subnetworks based on maximum entropy framework."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/"
+"Bug Tracker" = "https://github.com/"
