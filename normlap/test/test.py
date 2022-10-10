@@ -4,8 +4,11 @@
 # from Pipeline import Pipeline
 
 elist1 = [(1,2),(2,3),(3,5)]
-elist2 = [(2,3),(4,5),(1,2)]
-elist0 = list(set(elist1).union(elist2))
+elist2 = [(2,3),(4,5),(1,2),(2,4)]
+elist0 = elist1 + elist2 + [(2,5),(1,5),(3,4),(1,6),(1,4)]
+
+
+
 # dict1 = Formatter.edgelist_to_neighborhood(elist1)
 # dict2 = Formatter.edgelist_to_neighborhood(elist2)
 
@@ -49,6 +52,27 @@ elist0 = list(set(elist1).union(elist2))
 # f.close()
 
 
+
+
+# from normlap import Pipeline
+
+# # normalize the observed overlap
+# pipe = Pipeline(elist1,elist2)
+# pipe.show_results()
+
+# # generate randomized network
+# from normlap import Pipeline
+# pipe = Pipeline(elist1,elist2)
+# neg_instance1 = pipe.get_neg_instance(idx=0)
+# print(neg_instance1)
+# neg_instance2 = pipe.get_neg_instance(idx=1)
+# print(neg_instance2)
+
+#generate randomized subnetwork from the given union
 from normlap import Pipeline
-pipe = Pipeline(elist1,elist2)
-pipe.show_results()
+pipe = Pipeline(elist1,elist2,elist0)
+pos_instance1 = pipe.get_pos_instance(idx=0)
+print(pos_instance1)
+pos_instance2 = pipe.get_pos_instance(idx=1)
+print(pos_instance2)
+

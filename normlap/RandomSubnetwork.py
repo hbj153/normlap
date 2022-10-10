@@ -1,5 +1,5 @@
 
-from Helper import Helper
+from .Helper import Helper
 import random
 
 class RandomSubnetwork:

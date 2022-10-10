@@ -1,8 +1,9 @@
 
-from Helper import Helper
-from Formatter import Formatter
-from RandomNetwork import RandomNetwork
-from RandomSubnetwork import RandomSubnetwork
+from multiprocessing import pool
+from .Helper import Helper
+from .Formatter import Formatter
+from .RandomNetwork import RandomNetwork
+from .RandomSubnetwork import RandomSubnetwork
 import numpy as np
 import scipy
 
@@ -23,15 +24,20 @@ class Pipeline:
         poollist : list, optional
             The pool of generating the instance, by default None, meaning the pool is the union of the two network.
         """
-        self.poollist = poollist
+        # if the pool is not given
+        if poollist == None:
+            self.poollist = list(set(elist1).union(elist2))
+        else:
+            self.poollist = poollist
 
         self.pos_iter = 1000
         self.neg_iter = 1000
 
         # convert node to node_ids
-        self.id2node, self.node2id = Helper.covert2id(elist1,elist2)
+        self.id2node, self.node2id = Helper.covert2id(self.poollist)
         self.elist1 = [(self.node2id[node1],self.node2id[node2]) for node1,node2 in elist1]
         self.elist2 = [(self.node2id[node1],self.node2id[node2]) for node1,node2 in elist2]
+        self.poollist = [(self.node2id[node1],self.node2id[node2]) for node1,node2 in self.poollist]
 
         # convert to neighborhood
         self.a1dict = Formatter.edgelist_to_neighborhood(self.elist1)
@@ -61,10 +67,7 @@ class Pipeline:
         """
         
         ## positive benchmark
-        if self.poollist==None:
-            aelist = list(set(self.elist1).union(self.elist2)) # union of a1 and a2
-        else:
-            aelist = self.poollist
+        aelist = self.poollist
         adict = Formatter.edgelist_to_neighborhood(aelist)
         if idx==0:
             alphas,_ = RandomSubnetwork.optimize_alpha(adict,self.a1dict,iters=self.pos_iter,probeNode=0)
@@ -73,6 +76,7 @@ class Pipeline:
             alphas,_ = RandomSubnetwork.optimize_alpha(adict,self.a2dict,iters=self.pos_iter,probeNode=0)
             P = RandomSubnetwork.cal_probability(aelist,self.elist2,alphas=alphas)
         Gpos = RandomSubnetwork.construct_sample_network(P)
+        Gpos = [(self.id2node[node1],self.id2node[node2])for node1,node2 in Gpos]
         return Gpos
 
     def get_neg_instance(self, idx: int=0):
@@ -100,6 +104,7 @@ class Pipeline:
             selfNodes = Helper.find_selfNodes(self.a2dict)
             Pij,nodelist = RandomNetwork.cal_Pij(alphas_zero,selfNodes)
         Gneg = RandomNetwork.construct_random_network(Pij,nodelist,selfNodes)
+        Gneg = [(self.id2node[node1],self.id2node[node2])for node1,node2 in Gneg]
         return Gneg
 
     def construct_pos_benchmark(self):
@@ -115,10 +120,7 @@ class Pipeline:
         float,float
             pos_mean,pos_sigma
         """
-        if self.poollist==None:
-            aelist = list(set(self.elist1).union(self.elist2)) # union of a1 and a2
-        else:
-            aelist = self.poollist
+        aelist = self.poollist
         adict = Formatter.edgelist_to_neighborhood(aelist)
 
         alphas1,_ = RandomSubnetwork.optimize_alpha(adict,self.a1dict,iters=self.pos_iter,probeNode=0)

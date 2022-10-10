@@ -1,4 +1,4 @@
-from Helper import Helper
+from .Helper import Helper
 import numpy as np
 
 
