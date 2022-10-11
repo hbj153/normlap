@@ -57,7 +57,7 @@ print(neg_instance2)
 
 ### 2. Generate randomized subnetwork from the given union
 
-The positive benchmark is built on selecting random subnetwork from the union of the two input network. For broader application, normlap package provides function to generate random subnetwork instance from an **self-defined edge list pool**. If the pool is not given, the default is to use the union of the two input network.
+The positive benchmark is built on selecting random subnetwork from the union of the two input networks. For broader application, normlap package provides function to generate random subnetwork instance from an **self-defined edge list pool**. If the pool is not given, the default is to use the union of the two input network.
 
 ```python
 from normlap import Pipeline
@@ -73,8 +73,8 @@ print(pos_instance2)
 ```
 
 ```html
-[(0, 1), (2, 4), (1, 2)]
-[(0, 1), (1, 2), (3, 4)]
+[(1, 2), (2, 3), (3, 5)]
+[(2, 3), (4, 5), (2, 4), (2, 5)]
 ```
 
 
