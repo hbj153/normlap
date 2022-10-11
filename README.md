@@ -1,6 +1,6 @@
 # normlap
 ---
-Comparing observed overlap between networks with the negative and positive benchmarks. It also provides the functions to:
+Compares the observed overlap between networks with the negative and positive benchmarks. It also provides the functions to:
 
 - randomize the network while preserving the degree sequence
 - randomly select a subnetwork from the given pool network according to the degree sequence of the input network.
@@ -8,7 +8,7 @@ Comparing observed overlap between networks with the negative and positive bench
 The randomization is based on the maximum entropy framework.
 
 ## Get started
-If you have two networks represented in the edge list format, you already have everything you need to start using normalp:
+If you have two networks represented in the edge list format, you already have everything you need to start using normlap:
 
 ```python
 from normlap import Pipeline
