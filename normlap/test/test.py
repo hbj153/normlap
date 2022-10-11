@@ -75,4 +75,3 @@ pos_instance1 = pipe.get_pos_instance(idx=0)
 print(pos_instance1)
 pos_instance2 = pipe.get_pos_instance(idx=1)
 print(pos_instance2)
-

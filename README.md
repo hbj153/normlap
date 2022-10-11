@@ -1,6 +1,11 @@
 # normlap
 ---
-Comparing observed overlap between networks with the negative and positive benchmarks.
+Comparing observed overlap between networks with the negative and positive benchmarks. It also provides the functions to:
+
+- randomize the network while preserving the degree sequence
+- randomly select a subnetwork from the given pool network according to the degree sequence of the input network.
+
+The randomization is based on the maximum entropy framework.
 
 ## Get started
 If you have two networks represented in the edge list format, you already have everything you need to start using normalp:
@@ -34,7 +39,7 @@ Normlap_sigma:  0.14
 
 ### 1. Generate randomized network
 
-The randomization in normlap are based on the maximum entropy framework.
+The `Pipeline.get_neg_instance`  fucntion allows you to get a randomized version of the given network. The randomization preserves the degree sequence on average based on the maximum entropy framework.
 
 ```python
 # generate randomized network instance
@@ -57,7 +62,7 @@ print(neg_instance2)
 
 ### 2. Generate randomized subnetwork from the given union
 
-The positive benchmark is built on selecting random subnetwork from the union of the two input networks. For broader application, normlap package provides function to generate random subnetwork instance from an **self-defined edge list pool**. If the pool is not given, the default is to use the union of the two input network.
+The `Pipeline.get_pos_instance` function allows you to generate a randomized subnetwork from the pool, while preserving the degree sequence on average. If the pool is not given, the default is to use the union of the two input networks. For broader application, normlap package provides the option to generate random subnetwork instance from an **customized pool** as below.
 
 ```python
 from normlap import Pipeline
@@ -65,7 +70,7 @@ elist1 = [(1,2),(2,3),(3,5)]
 elist2 = [(2,3),(4,5),(1,2),(2,4)]
 elist0 = elist1 + elist2 + [(2,5),(1,5),(3,4),(1,6),(1,4)]
 
-pipe = Pipeline(elist1,elist2,elist0)
+pipe = Pipeline(elist1, elist2, poollist=elist0)
 pos_instance1 = pipe.get_pos_instance(idx=0)
 print(pos_instance1)
 pos_instance2 = pipe.get_pos_instance(idx=1)
