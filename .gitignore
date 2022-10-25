@@ -1,5 +1,5 @@
 ### macOS ###
-*.DS_Store
+**/.DS_Store
 .AppleDouble
 .LSOverride
 
@@ -46,6 +46,7 @@ wheels/
 .installed.cfg
 *.egg
 normlap/test.py
+normlap/test
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
