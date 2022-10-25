@@ -1,4 +1,4 @@
-from .Formatter import Formatter
+from Formatter import Formatter
 import copy
 import numpy as np
 
