@@ -223,7 +223,7 @@ class RandomNetwork:
 
         Parameters
         ----------
-        a1elist: network1 represented in the edgelist format.
+        a1elist: network1 represented in the edgelist format. network1 will be randomized and compared with network2.
         a2elist: network2 represented in the edgelist format.
         iters_start: the minimum iteration of alphas, default = 100
         neg_change_limit: the stopping criterion based on the absolute change of neg between iter_spacing iterations.

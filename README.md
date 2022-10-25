@@ -8,12 +8,16 @@ Compares the observed overlap between networks with the negative and positive be
 The randomization is based on the maximum entropy framework.
 
 ## Get started
-If you have two networks represented in the edge list format, you already have everything you need to start using normlap:
+If you have two networks represented in the edge list format and `normlap` package installed, you already have everything you need to start using normlap.
+
+### Quick start
+
+To use the default settings of generating positive benchmark, negative benchmark and calculate the normlap score, run as follows:
 
 ```python
 from normlap import Pipeline
-elist1 = [(1,2),(2,3),(3,5)] # an example network1
-elist2 = [(2,3),(4,5),(1,2)] # an example network2
+elist1 = [(1, 2), (2, 3), (3, 5)] # an example network1
+elist2 = [(2, 3), (4, 5), (1, 2), (2, 4)] # an example network2
 pipe = Pipeline(elist1,elist2)
 labels,results = pipe.show_results(printOn=True)
 
@@ -22,18 +26,45 @@ labels,results = pipe.show_results(printOn=True)
 In addition to saving the results to the given variables, the results will be printed out with `printOn=True` option as below:
 
 ```html
+The get_pos_benchmark function has not been called yet. The results will be calculated based on default parameters.
+The get_neg_benchmark function has not been called yet. The results will be calculated based on default parameters.
 Observed overlap:  2.00
-Neg_mean:  1.50
-Neg_sigma:  0.50
+Neg_mean:  1.33
+Neg_sigma:  0.67
 Neg_p:  0.16
 Pos_mean:  2.00
-Pos_sigma:  0.07
+Pos_sigma:  0.06
 Pos_p:  0.50
 Normlap:  1.00
-Normlap_sigma:  0.14
+Normlap_sigma:  0.09
 ```
 
+The default setting stop iterating the value of alphas when the absolute change of pos_mean(neg_mean) < 1.
 
+To customize the stopping criterion, use the following:
+
+```python
+pipe = Pipeline(elist1, elist2)
+pos_mean, pos_sigma = pipe.get_pos_benchmark(
+    iters_start=100, pos_change_limit=1.0, iter_spacing=100, max_iterations=2000)
+neg_mean, neg_sigma = pipe.get_neg_benchmark(
+    iters_start=100, neg_change_limit=0.1, iter_spacing=100, max_iterations=2000)
+labels, results = pipe.show_results(printOn=True)
+```
+
+This allows you to customize the details of iterations, the results are as follows:
+
+```text
+Observed overlap:  2.00
+Neg_mean:  1.33
+Neg_sigma:  0.67
+Neg_p:  0.16
+Pos_mean:  2.00
+Pos_sigma:  0.20
+Pos_p:  0.50
+Normlap:  1.00
+Normlap_sigma:  0.29
+```
 
 ## Example Use
 
