@@ -20,7 +20,6 @@ elist1 = [(1, 2), (2, 3), (3, 5)] # an example network1
 elist2 = [(2, 3), (4, 5), (1, 2), (2, 4)] # an example network2
 pipe = Pipeline(elist1,elist2)
 labels,results = pipe.show_results(printOn=True)
-
 ```
 
 In addition to saving the results to the given variables, the results will be printed out with `printOn=True` option as below:
@@ -117,4 +116,8 @@ print(pos_instance2)
 
 
 ## Citing
+
+The article describing the method is now viewable on Biorxiv: https://www.biorxiv.org/content/10.1101/2022.10.21.513307v1.
+
+Please consider citing us if you found it useful.
 
