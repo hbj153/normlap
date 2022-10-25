@@ -15,7 +15,7 @@ If you have two networks represented in the edge list format and `normlap` packa
 To use the default settings of generating positive benchmark, negative benchmark and calculate the normlap score, run as follows:
 
 ```python
-from normlap import Pipeline
+from normlap.Pipeline import Pipeline
 elist1 = [(1, 2), (2, 3), (3, 5)] # an example network1
 elist2 = [(2, 3), (4, 5), (1, 2), (2, 4)] # an example network2
 pipe = Pipeline(elist1,elist2)
@@ -44,6 +44,7 @@ The default setting stop iterating the value of alphas when the absolute change 
 To customize the stopping criterion, use the following:
 
 ```python
+from normlap.Pipeline import Pipeline
 pipe = Pipeline(elist1, elist2)
 pos_mean, pos_sigma = pipe.get_pos_benchmark(
     iters_start=100, pos_change_limit=1.0, iter_spacing=100, max_iterations=2000)
@@ -74,7 +75,7 @@ The `Pipeline.get_neg_instance`  fucntion allows you to get a randomized version
 
 ```python
 # generate randomized network instance
-from normlap import Pipeline
+from normlap.Pipeline import Pipeline
 elist1 = [(1,2),(2,3),(3,5)]
 elist2 = [(2,3),(4,5),(1,2),(2,4)]
 pipe = Pipeline(elist1,elist2)
@@ -96,7 +97,7 @@ print(neg_instance2)
 The `Pipeline.get_pos_instance` function allows you to generate a randomized subnetwork from the pool, while preserving the degree sequence on average. If the pool is not given, the default is to use the union of the two input networks. For broader application, normlap package provides the option to generate random subnetwork instance from an **customized pool** as below.
 
 ```python
-from normlap import Pipeline
+from normlap.Pipeline import Pipeline
 elist1 = [(1,2),(2,3),(3,5)]
 elist2 = [(2,3),(4,5),(1,2),(2,4)]
 elist0 = elist1 + elist2 + [(2,5),(1,5),(3,4),(1,6),(1,4)]

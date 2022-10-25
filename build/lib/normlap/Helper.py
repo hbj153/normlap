@@ -4,7 +4,7 @@ import numpy as np
 
 class Helper:
 
-    def covert2id(elist1,elist2):
+    def covert2id(elist):
         """covert2id Convert the nodes in given list to node_ids, return the mapping.
 
         Parameters
@@ -22,9 +22,7 @@ class Helper:
         id2node = {}
         node2id = {}
 
-        nodes1 = set([node for pair in elist1 for node in pair])
-        nodes2 = set([node for pair in elist2 for node in pair])
-        nodes = sorted(nodes1.union(nodes2))
+        nodes = set([node for pair in elist for node in pair])
 
         for i, node in enumerate(nodes):
             id2node[i] = node
